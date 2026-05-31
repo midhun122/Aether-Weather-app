@@ -1,4 +1,4 @@
-# Aether
+# ☀️Aether
 
 Aether is a weather application built to explore modern frontend design, weather visualizations, and real-time weather data. The project combines live weather information with dynamic visual effects that react to current conditions, creating a more immersive experience than a traditional weather dashboard.
 
