@@ -17,7 +17,7 @@ window.addEventListener('load', ()=>{
 setInterval(()=>{ document.getElementById('hclock').textContent=new Date().toTimeString().slice(0,8); }, 1000);
 
 // App configuration
-const OWM_KEY = '5246e982cc73d37ae425b3dc27e5c098'; 
+const OWM_KEY = 'YOUR_OWM_API_KEY_HERE';
 const OWM = 'https://api.openweathermap.org/data/2.5';
 let unit='metric', lastLat=null, lastLon=null;
 
