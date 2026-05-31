@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aether — Weather</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- SKY + PARTICLE CANVASES -->
+<canvas id="sky-canvas"></canvas>
+<canvas id="particle-canvas"></canvas>
+<div class="grain"></div>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="splash-logo">
+    <svg class="splash-svg" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="36" cy="36" r="35" stroke="rgba(100,255,218,0.2)" stroke-width="1"/>
+      <circle cx="36" cy="36" r="27" stroke="rgba(100,255,218,0.1)" stroke-width="0.5"/>
+      <path d="M36 10 L56 46 H16 Z" stroke="#64ffda" stroke-width="1.6" fill="rgba(100,255,218,0.07)" stroke-linejoin="round"/>
+      <path d="M36 62 L56 26 H16 Z" stroke="rgba(96,165,250,0.65)" stroke-width="1.1" fill="rgba(96,165,250,0.04)" stroke-linejoin="round"/>
+      <line x1="36" y1="10" x2="36" y2="62" stroke="rgba(100,255,218,0.25)" stroke-width="0.5" stroke-dasharray="3 3"/>
+      <line x1="16" y1="36" x2="56" y2="36" stroke="rgba(100,255,218,0.25)" stroke-width="0.5" stroke-dasharray="3 3"/>
+      <circle cx="36" cy="36" r="3.5" fill="#64ffda"/>
+      <circle cx="36" cy="10" r="2" fill="rgba(100,255,218,0.8)"/>
+    </svg>
+    <div class="splash-name">Aether</div>
+    <div class="splash-tag">Real-time weather intelligence</div>
+    <div class="splash-bar"><div class="splash-prog" id="sp-bar"></div></div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header id="header">
+  <div class="logo">
+    <svg class="logo-svg" viewBox="0 0 72 72" fill="none">
+      <path d="M36 10 L56 46 H16 Z" stroke="#64ffda" stroke-width="1.8" fill="rgba(100,255,218,0.08)" stroke-linejoin="round"/>
+      <path d="M36 62 L56 26 H16 Z" stroke="rgba(96,165,250,0.6)" stroke-width="1.2" fill="rgba(96,165,250,0.04)" stroke-linejoin="round"/>
+      <circle cx="36" cy="36" r="3" fill="#64ffda"/>
+      <circle cx="36" cy="10" r="2" fill="rgba(100,255,218,0.8)"/>
+    </svg>
+    <div>
+      <span class="logo-text">Aether</span>
+      <span class="logo-badge">&nbsp;WEATHER</span>
+    </div>
+  </div>
+  <div class="header-r">
+    <span id="hclock">--:--:--</span>
+    <div class="pill-toggle">
+      <button class="pill-btn on" id="btn-c" onclick="setUnit('metric')">°C</button>
+      <button class="pill-btn" id="btn-f" onclick="setUnit('imperial')">°F</button>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main id="main">
+  <div id="sw">
+    <input id="city-input" type="text" placeholder="Search city — Kochi, Tokyo, London…" autocomplete="off" spellcheck="false"/>
+    <button class="sq-btn" onclick="geoLocate()" title="Use my location">⌖</button>
+    <button id="go-btn" onclick="doSearch()">Search</button>
+  </div>
+  <div id="status-msg"></div>
+
+  <!-- SKELETON -->
+  <div id="skeleton">
+    <div class="sk" style="height:190px;border-radius:var(--r2);"></div>
+    <div class="sk-g3">
+      <div class="sk" style="height:88px;"></div><div class="sk" style="height:88px;"></div><div class="sk" style="height:88px;"></div>
+      <div class="sk" style="height:88px;"></div><div class="sk" style="height:88px;"></div><div class="sk" style="height:88px;"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div class="sk" style="height:110px;border-radius:var(--r2);"></div>
+      <div class="sk" style="height:110px;border-radius:var(--r2);"></div>
+    </div>
+    <div class="sk-g5">
+      <div class="sk" style="height:105px;"></div><div class="sk" style="height:105px;"></div><div class="sk" style="height:105px;"></div>
+      <div class="sk" style="height:105px;"></div><div class="sk" style="height:105px;"></div>
+    </div>
+  </div>
+
+  <!-- WEATHER -->
+  <div id="wx">
+    <div class="gc hero">
+      <div>
+        <div class="h-city" id="d-city">—</div>
+        <div class="h-badge" id="d-badge">—</div>
+        <div class="h-meta">
+          <span id="d-country" style="color:var(--text2)">—</span><br>
+          LAT <b id="d-lat">—</b> &nbsp;·&nbsp; LON <b id="d-lon">—</b><br>
+          Updated <b id="d-upd" style="color:var(--accent)">—</b>
+        </div>
+      </div>
+      <div class="h-right">
+        <span class="h-emoji" id="d-icon">🌤</span>
+        <div class="h-temp" id="d-temp">—</div>
+        <div class="h-feels">Feels <b id="d-feels">—</b></div>
+        <div class="h-hilo">
+          <span style="color:var(--warm)" id="d-hi">—</span>
+          <span style="color:var(--text3)"> / </span>
+          <span style="color:var(--blue)" id="d-lo">—</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="st"><div class="st-icon">💧</div><div class="st-lbl">Humidity</div><div class="st-val" id="d-hum">—</div><div class="st-unit">percent</div><div class="mini-bar"><div class="mini-fill" id="b-hum" style="background:var(--blue);width:0"></div></div></div>
+      <div class="st"><div class="st-icon">💨</div><div class="st-lbl">Wind</div><div class="st-val" id="d-wind">—</div><div class="st-unit"><span id="d-wu">km/h</span> <span id="d-wdir" style="color:var(--accent);font-weight:700">—</span></div><div class="mini-bar"><div class="mini-fill" id="b-wind" style="background:var(--accent);width:0"></div></div></div>
+      <div class="st"><div class="st-icon">👁</div><div class="st-lbl">Visibility</div><div class="st-val" id="d-vis">—</div><div class="st-unit">km</div><div class="mini-bar"><div class="mini-fill" id="b-vis" style="background:var(--warm);width:0"></div></div></div>
+      <div class="st"><div class="st-icon">🌡</div><div class="st-lbl">Pressure</div><div class="st-val" id="d-pres">—</div><div class="st-unit">hPa</div></div>
+      <div class="st"><div class="st-icon">☁️</div><div class="st-lbl">Cloud Cover</div><div class="st-val" id="d-cloud">—</div><div class="st-unit">percent</div><div class="mini-bar"><div class="mini-fill" id="b-cloud" style="background:rgba(200,200,220,0.5);width:0"></div></div></div>
+      <div class="st"><div class="st-icon">🌊</div><div class="st-lbl">Dew Point</div><div class="st-val" id="d-dew">—</div><div class="st-unit" id="d-deu">°C</div></div>
+    </div>
+
+    <div class="two-col">
+      <div class="gc info-card">
+        <div class="ic-lbl">Sun & Atmosphere</div>
+        <div class="ic-row"><span class="ic-key">🌅 Sunrise</span><span class="ic-v" id="d-rise">—</span></div>
+        <div class="ic-row"><span class="ic-key">🌇 Sunset</span><span class="ic-v" id="d-set">—</span></div>
+        <div class="ic-row"><span class="ic-key">🌧 Precipitation</span><span class="ic-v" id="d-precip">—</span></div>
+      </div>
+      <div class="gc info-card">
+        <div class="ic-lbl">UV Index</div>
+        <div><span class="uv-big" id="d-uv">—</span><span class="uv-pill" id="d-uvp">—</span></div>
+        <div class="uv-track"><div class="uv-thumb" id="uv-thumb" style="left:0%"></div></div>
+        <div style="display:flex;justify-content:space-between;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);">
+          <span>Low</span><span>Mod</span><span>High</span><span>V.High</span><span>Ext</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text3);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;padding:0 2px;">5 · Day · Forecast</div>
+      <div class="fc-grid" id="fc-grid"></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  Made with ❤️ by Midhun
+  &nbsp;·&nbsp;
+  Powered by <a href="https://openweathermap.org" target="_blank">OpenWeatherMap</a>
+  &nbsp;·&nbsp;
+  <span id="coord-foot"></span>
+</footer>
+
+<div id="mood-badge"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
