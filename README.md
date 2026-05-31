@@ -1,80 +1,127 @@
-# ☀️Aether
+# Aether 🌤️
 
-Aether is a weather application built to explore modern frontend design, weather visualizations, and real-time weather data. The project combines live weather information with dynamic visual effects that react to current conditions, creating a more immersive experience than a traditional weather dashboard.
+Aether is a modern weather application built using HTML, CSS, and JavaScript. The project combines real-time weather data with dynamic visuals, weather-reactive backgrounds, and interactive UI elements to create a more immersive weather experience.
 
-The goal of this project is not only to display weather data but also to experiment with interactive UI design, animations, and weather-driven visual storytelling.
+This project started as a way to learn frontend development through a practical application while experimenting with animations, visual effects, and API integration.
 
-## Current Features
+> 🚧 **Under Active Development**
+>
+> Aether is currently being improved and new features are being added regularly. Expect UI changes, performance improvements, and additional functionality in future updates.
 
-* Real-time weather information using OpenWeatherMap
+---
+
+## Features
+
+* Real-time weather information
 * City-based weather search
-* Geolocation support
+* Current location weather using geolocation
+* Dynamic weather-reactive backgrounds
+* Animated weather particle effects
+* 5-day forecast
 * Temperature unit switching (°C / °F)
-* 5-day weather forecast
-* Dynamic weather-themed backgrounds
-* Animated particle effects for different weather conditions
-* UV index display
-* Wind, humidity, pressure, visibility, and cloud coverage metrics
+* UV Index information
+* Wind speed and direction
+* Humidity, pressure, visibility, and cloud coverage
 * Responsive design for desktop and mobile devices
-* Animated splash screen and loading states
+* Modern glassmorphism-inspired interface
 
-## Built With
+---
+
+## Tech Stack
 
 * HTML5
 * CSS3
 * Vanilla JavaScript
 * OpenWeatherMap API
 
-## Project Status
+---
 
-⚠️ This project is currently under active development.
+## Getting Started
 
-Aether is still being improved and refined. Features, UI components, animations, and data handling may change over time as the project evolves.
-
-Some areas currently being explored include:
-
-* Better forecast visualizations
-* Additional weather insights
-* Performance optimizations
-* Accessibility improvements
-* UI/UX refinements
-* Progressive Web App (PWA) support
-* Improved API handling
-
-## Why I Built This
-
-I wanted to build a weather application that felt more engaging than a typical weather dashboard. Instead of displaying static weather information, Aether attempts to reflect weather conditions visually through dynamic themes, animated backgrounds, and responsive interactions.
-
-This project also serves as a practical way for me to improve my frontend development skills and experiment with creative user interface ideas.
-
-## Setup
-
-1. Clone the repository
+### Clone the Repository
 
 ```bash
 git clone https://github.com/midhun122/Aether-Weather-app.git
 ```
 
-2. Open the project folder
+### Open the Project
 
-3. Add your OpenWeatherMap API key inside `script.js`
+Navigate into the project folder and open it in your preferred code editor.
+
+### Add Your OpenWeatherMap API Key
+
+Open the `script.js` file and locate:
 
 ```javascript
-const OWM_KEY = 'YOUR_API_KEY_HERE';
+const OWM_KEY = 'YOUR_OWM_KEY_HERE';
 ```
 
-4. Open `index.html` in your browser
+Replace it with your own API key:
 
-## Notes
+```javascript
+const OWM_KEY = 'YOUR_API_KEY';
+```
 
-This project uses the free OpenWeatherMap API. An API key is required for weather data retrieval.
+You can obtain a free API key from OpenWeatherMap.
 
-The application is intended as a learning and portfolio project and will continue to receive updates as new ideas and improvements are implemented.
+### Run the Project
+
+Simply open `index.html` in your browser.
+
+No additional dependencies or installation steps are required.
+
+---
+
+## Project Structure
+
+```text
+Aether-Weather-app/
+│
+├── index.html
+├── style.css
+├── script.js
+└── README.md
+```
+
+---
+
+## Current Development Focus
+
+Some improvements currently planned include:
+
+* Better weather insights
+* Enhanced forecast visualizations
+* Performance optimization
+* Accessibility improvements
+* Additional weather animations
+* Progressive Web App (PWA) support
+* Improved API handling and error states
+
+---
+
+## Why This Project?
+
+Most weather applications focus purely on displaying data. With Aether, the goal is to create an experience where the interface visually reflects the weather conditions through animations, themes, and interactive elements.
+
+This project also serves as a learning journey as I continue improving my frontend development skills and explore creative ways to present information.
+
+---
+
+## Contributing
+
+Suggestions, feedback, and improvements are always welcome.
+
+If you find a bug or have an idea for a feature, feel free to open an issue.
+
+---
 
 ## Author
 
 Made with ❤️ by Midhun
 
+---
+
 ## License
 
-This project is available for learning and personal use.
+This project is available for educational and personal use.
+
