@@ -106,9 +106,18 @@ body{
   transition:transform 0.55s var(--ease-bounce), background 2s ease;
 }
 #header.in{transform:none;}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none;cursor:pointer;}
-.logo-svg{width:30px;height:30px;flex-shrink:0;filter:drop-shadow(0 0 8px rgba(100,255,218,0.5));transition:filter 0.3s;}
-.logo:hover .logo-svg{filter:drop-shadow(0 0 14px rgba(100,255,218,0.9));}
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-image {
+    height: 20px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+
+}.logo:hover .logo-svg{filter:drop-shadow(0 0 14px rgba(100,255,218,0.9));}
 .logo-text{font-size:18px;font-weight:800;letter-spacing:-0.3px;background:linear-gradient(135deg,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .logo-badge{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);letter-spacing:2px;-webkit-text-fill-color:var(--text3);}
 .header-r{display:flex;align-items:center;gap:12px;}
@@ -329,3 +338,5 @@ footer a{color:var(--text3);text-decoration:none;}footer a:hover{color:var(--acc
   .fc-grid{grid-template-columns:repeat(3,1fr);}
 }
 @media(max-width:380px){.fc-grid{grid-template-columns:repeat(2,1fr);}}
+
+
