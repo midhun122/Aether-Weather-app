@@ -361,6 +361,21 @@ async function renderFromCurrent(cur){
 
   // ── HERO ──
   document.getElementById('d-city').textContent=cur.name;
+  const cityEl = document.getElementById('d-city');
+const cityLength = cur.name.length;
+
+if (cityLength <= 10) {
+    cityEl.style.fontSize = 'clamp(30px,5.5vw,60px)';
+}
+else if (cityLength <= 15) {
+    cityEl.style.fontSize = 'clamp(26px,4.5vw,48px)';
+}
+else if (cityLength <= 20) {
+    cityEl.style.fontSize = 'clamp(22px,4vw,40px)';
+}
+else {
+    cityEl.style.fontSize = 'clamp(18px,3.5vw,32px)';
+}
   document.getElementById('d-country').textContent=cur.sys.country||'';
   document.getElementById('d-badge').textContent=owmIcon(weather.id,pod)+' '+weather.description.replace(/\b\w/g,c=>c.toUpperCase());
   document.getElementById('d-icon').textContent=owmIcon(weather.id,pod);
