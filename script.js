@@ -501,24 +501,30 @@ async function generateAISummary(cur){
                 headers:{
                     "Content-Type":"application/json"
                 },
-                body:JSON.stringify({
-                    contents:[
-                        {
-                            parts:[
-                                {
-                                    text:prompt
-                                }
-                            ]
-                        }
-                    ]
-                })
+                body: JSON.stringify({
+    prompt: prompt
+})
             }
         );
 
         const data = await response.json();
 
-        document.getElementById("ai-summary").innerHTML =
-            data.candidates[0].content.parts[0].text;
+console.log("AI RESPONSE:", data);
+
+if (data.candidates?.[0]?.content?.parts?.[0]?.text) {
+
+    document.getElementById("ai-summary").innerHTML =
+        data.candidates[0].content.parts[0].text;
+
+} else {
+
+    document.getElementById("ai-summary").innerHTML =
+        "No AI response";
+
+    console.log("Gemini returned:", data);
+}
+console.log("AI RESPONSE:", data);
+
 
     }
     catch(err){
@@ -574,6 +580,7 @@ async function askAI(question){
     }
 );
         const data = await response.json();
+        console.log(data);
 
         document.getElementById("ai-summary").innerHTML =
             data.candidates[0].content.parts[0].text;
