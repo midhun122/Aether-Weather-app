@@ -18,6 +18,7 @@ setInterval(()=>{ document.getElementById('hclock').textContent=new Date().toTim
 
 // App configuration
 const OWM_KEY = 'e243d452751bdd6c4dbabad28b95ca2f ';
+const GEMINI_KEY = 'AIzaSyC6lVYSqc0Tz7uunNnsBt4Qodxqb4Q5A8Y';
 const OWM = 'https://api.openweathermap.org/data/2.5';
 let unit='metric', lastLat=null, lastLon=null;
 
@@ -468,10 +469,134 @@ else {
     }
   }catch(e){}
 
-  setStatus('Weather loaded',true);
-  showSkel(false);
+  await generateAISummary(cur);
+
+setStatus('Weather loaded',true);
+showSkel(false);
+}
+async function generateAISummary(cur){
+
+    const prompt = `
+    You are Aether AI.
+
+    Location: ${cur.name}
+    Country: ${cur.sys.country}
+
+    Temperature: ${Math.round(cur.main.temp)}
+    Feels Like: ${Math.round(cur.main.feels_like)}
+    Humidity: ${cur.main.humidity}
+    Wind: ${Math.round(cur.wind.speed)}
+
+    Condition: ${cur.weather[0].description}
+
+    Give a short weather summary in 2 sentences.
+    `;
+
+    try{
+
+        const response = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_KEY}`,
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    contents:[
+                        {
+                            parts:[
+                                {
+                                    text:prompt
+                                }
+                            ]
+                        }
+                    ]
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        document.getElementById("ai-summary").innerHTML =
+            data.candidates[0].content.parts[0].text;
+
+    }
+    catch(err){
+
+        document.getElementById("ai-summary").innerHTML =
+            "Unable to generate AI weather insights.";
+
+        console.error(err);
+
+    }
 }
 
+async function askAI(question){
+
+    const city =
+        document.getElementById("d-city").textContent;
+
+    const weather =
+        document.getElementById("d-badge").textContent;
+
+    const temp =
+        document.getElementById("d-temp").textContent;
+
+    document.getElementById("ai-summary").innerHTML =
+        "🧠 Thinking...";
+
+    const prompt = `
+    You are Aether AI.
+
+    Current City: ${city}
+    Weather: ${weather}
+    Temperature: ${temp}
+
+    User Question:
+
+    ${question}
+
+    Answer practically and briefly.
+    `;
+
+    try{
+
+        const response = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_KEY}`,
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    contents:[
+                        {
+                            parts:[
+                                {
+                                    text:prompt
+                                }
+                            ]
+                        }
+                    ]
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        document.getElementById("ai-summary").innerHTML =
+            data.candidates[0].content.parts[0].text;
+
+    }
+    catch(err){
+
+        document.getElementById("ai-summary").innerHTML =
+            "AI response unavailable.";
+
+        console.error(err);
+
+    }
+}
 // UI
 function setStatus(msg,ok=false){
   const el=document.getElementById('status-msg');
@@ -490,3 +615,17 @@ function showSkel(show){
     });
   }
 }
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    document.querySelectorAll(".ai-btn").forEach(btn=>{
+
+        btn.addEventListener("click",()=>{
+
+            askAI(btn.textContent.trim());
+
+        });
+
+    });
+
+});
