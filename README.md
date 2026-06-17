@@ -1,38 +1,94 @@
-# Aether 🌤️
+# Aether 🌤️🤖
 
-Aether is a modern weather application built using HTML, CSS, and JavaScript. The project combines real-time weather data with dynamic visuals, weather-reactive backgrounds, and interactive UI elements to create a more immersive weather experience.
+Aether is a modern AI-powered weather application built using HTML, CSS, and JavaScript. It combines real-time weather data, dynamic weather-reactive visuals, and AI-generated weather insights to create a more immersive and intelligent weather experience.
 
-This project started as a way to learn frontend development through a practical application while experimenting with animations, visual effects, and API integration.
+Unlike traditional weather apps that only display raw data, Aether interprets weather conditions and provides practical recommendations such as clothing suggestions, outdoor activity guidance, and weather-based insights.
 
 > 🚧 **Under Active Development**
 >
-> Aether is currently being improved and new features are being added regularly. Expect UI changes, performance improvements, and additional functionality in future updates.
+> Aether is continuously evolving with new features, UI enhancements, AI improvements, and performance optimizations being added regularly.
 
 ---
 
 ## Features
+
+### 🌦️ Weather Features
 
 * Real-time weather information
 * City-based weather search
 * Current location weather using geolocation
 * Dynamic weather-reactive backgrounds
 * Animated weather particle effects
-* 5-day forecast
 * Temperature unit switching (°C / °F)
 * UV Index information
 * Wind speed and direction
-* Humidity, pressure, visibility, and cloud coverage
+* Humidity monitoring
+* Atmospheric pressure
+* Visibility tracking
+* Cloud coverage analysis
 * Responsive design for desktop and mobile devices
+
+### 🤖 AI Features
+
+* AI-powered weather summaries
+* Smart weather insights
+* Practical weather recommendations
+* "Do I need an umbrella?" guidance
+* "What should I wear?" suggestions
+* "Good for running?" activity recommendations
+* Gemini AI integration
+* Secure API architecture using Cloudflare Workers
+
+### 🎨 User Experience
+
 * Modern glassmorphism-inspired interface
+* Dynamic weather themes
+* Smooth animations and transitions
+* Mobile-first responsive layout
+* Weather-specific visual effects
+* Clean and intuitive user interface
 
 ---
 
 ## Tech Stack
 
+### Frontend
+
 * HTML5
 * CSS3
 * Vanilla JavaScript
+
+### APIs & Services
+
 * OpenWeatherMap API
+* Google Gemini AI API
+* Cloudflare Workers
+
+### Deployment
+
+* GitHub Pages
+* Cloudflare Workers
+
+---
+
+## Architecture
+
+```text
+User
+ │
+ ▼
+Aether Frontend
+ │
+ ├── OpenWeatherMap API
+ │
+ ▼
+Cloudflare Worker
+ │
+ ▼
+Google Gemini AI
+```
+
+Aether uses a Cloudflare Worker as a secure backend proxy to protect AI API keys from being exposed in the frontend source code.
 
 ---
 
@@ -50,25 +106,37 @@ Navigate into the project folder and open it in your preferred code editor.
 
 ### Add Your OpenWeatherMap API Key
 
-Open the `script.js` file and locate:
+Locate:
 
 ```javascript
 const OWM_KEY = 'YOUR_OWM_KEY_HERE';
 ```
 
-Replace it with your own API key:
+Replace it with:
 
 ```javascript
 const OWM_KEY = 'YOUR_API_KEY';
 ```
 
-You can obtain a free API key from OpenWeatherMap.
+### Configure AI Features
+
+Create a Cloudflare Worker and add your Gemini API key as a secret:
+
+```bash
+GEMINI_API_KEY
+```
+
+Update the Worker URL inside `script.js`:
+
+```javascript
+https://your-worker-name.workers.dev
+```
 
 ### Run the Project
 
-Simply open `index.html` in your browser.
+Open `index.html` in your browser.
 
-No additional dependencies or installation steps are required.
+No build tools or additional dependencies are required.
 
 ---
 
@@ -80,6 +148,10 @@ Aether-Weather-app/
 ├── index.html
 ├── style.css
 ├── script.js
+├── assets/
+│   ├── images/
+│   └── icons/
+│
 └── README.md
 ```
 
@@ -87,23 +159,31 @@ Aether-Weather-app/
 
 ## Current Development Focus
 
-Some improvements currently planned include:
+Planned improvements include:
 
-* Better weather insights
-* Enhanced forecast visualizations
-* Performance optimization
-* Accessibility improvements
-* Additional weather animations
+* Full AI weather chat assistant
+* 5-day forecast enhancements
+* Weather alerts and warnings
 * Progressive Web App (PWA) support
-* Improved API handling and error states
+* Better AI recommendations
+* Accessibility improvements
+* Advanced weather visualizations
+* Performance optimization
+* Voice-based weather assistant
 
 ---
 
 ## Why This Project?
 
-Most weather applications focus purely on displaying data. With Aether, the goal is to create an experience where the interface visually reflects the weather conditions through animations, themes, and interactive elements.
+Most weather applications focus on presenting data. Aether aims to transform weather information into an interactive and intelligent experience through AI-powered recommendations, dynamic visuals, and weather-reactive design.
 
-This project also serves as a learning journey as I continue improving my frontend development skills and explore creative ways to present information.
+This project was built to strengthen my frontend development skills, explore API integration, experiment with AI-powered interfaces, and learn how to securely deploy applications using modern cloud services.
+
+---
+
+## Live Demo
+
+🌐 https://midhun122.github.io/Aether-Weather-app/
 
 ---
 
@@ -111,17 +191,12 @@ This project also serves as a learning journey as I continue improving my fronte
 
 Suggestions, feedback, and improvements are always welcome.
 
-If you find a bug or have an idea for a feature, feel free to open an issue.
+If you find a bug or have an idea for a feature, feel free to open an issue or submit a pull request.
 
 ---
 
 ## Author
 
-Made with ❤️ by Midhun
+Made with ❤️ by **Midhun Sujith Nair**
 
----
-
-## License
-
-This project is available for educational and personal use.
-
+Web Developer • AI Enthusiast
