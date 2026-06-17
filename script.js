@@ -18,7 +18,7 @@ setInterval(()=>{ document.getElementById('hclock').textContent=new Date().toTim
 
 // App configuration
 const OWM_KEY = 'e243d452751bdd6c4dbabad28b95ca2f ';
-const GEMINI_KEY = "__GEMINI_KEY__";
+const GEMINI_KEY = 'AIzaSyC6lVYSqc0Tz7uunNnsBt4Qodxqb4Q5A8Y';
 const OWM = 'https://api.openweathermap.org/data/2.5';
 let unit='metric', lastLat=null, lastLon=null;
 
