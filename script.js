@@ -561,7 +561,7 @@ async function askAI(question){
 
     try{
 
-        const response = await fetch(
+  const response = await fetch(
     "https://aether-ai.midhunsujith44.workers.dev/",
     {
         method: "POST",
@@ -573,7 +573,6 @@ async function askAI(question){
         })
     }
 );
-
         const data = await response.json();
 
         document.getElementById("ai-summary").innerHTML =
