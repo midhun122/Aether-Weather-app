@@ -335,16 +335,148 @@ footer a{color:var(--text3);text-decoration:none;}footer a:hover{color:var(--acc
 }
 #mood-badge.show{opacity:1;transform:none;}
 
-/* ── RESPONSIVE ── */
-@media(max-width:640px){
-  #main{padding:88px 14px 32px;}
-  .hero{grid-template-columns:1fr;gap:12px;}
-  .h-right{text-align:left;display:flex;align-items:center;gap:14px;}
+/* ══════════════════════════════════════
+   RESPONSIVE — tablet (≤768px)
+══════════════════════════════════════ */
+@media(max-width:768px){
+  /* stat grid drops to 2 cols earlier */
   .stat-grid{grid-template-columns:repeat(2,1fr);}
-  .two-col{grid-template-columns:1fr;}
-  .fc-grid{grid-template-columns:repeat(3,1fr);}
+
+  /* forecast scrollable row instead of cramped grid */
+  .fc-grid{
+    grid-template-columns:repeat(5,minmax(100px,1fr));
+    overflow-x:auto;
+    padding-bottom:6px;
+    /* hide scrollbar visually but keep it functional */
+    scrollbar-width:none;
+  }
+  .fc-grid::-webkit-scrollbar{display:none;}
 }
-@media(max-width:380px){.fc-grid{grid-template-columns:repeat(2,1fr);}}
+
+/* ══════════════════════════════════════
+   RESPONSIVE — mobile (≤640px)
+══════════════════════════════════════ */
+@media(max-width:640px){
+
+  /* ── layout ── */
+  #main{padding:76px 12px 32px;gap:12px;}
+
+  /* ── header ── */
+  #header{padding:12px 16px;}
+  .logo-image{height:18px;}
+  #hclock{display:none;} /* clock hides on small screens, saves space */
+  .pill-btn{padding:5px 10px;font-size:11px;}
+
+  /* ── search bar ── */
+  #sw{padding:12px;gap:6px;border-radius:18px;}
+  #city-input{font-size:13px;padding:10px 16px;}
+  #go-btn{height:42px;padding:0 16px;font-size:13px;}
+  .sq-btn{width:42px;height:42px;font-size:17px;}
+
+  /* ── splash ── */
+  .splash-logo-image,.splash-logo-img{width:200px;}
+  .splash-tag{font-size:9px;letter-spacing:2px;}
+  .splash-bar{width:120px;}
+
+  /* ── hero card ── */
+  .hero{
+    grid-template-columns:1fr;
+    gap:0;
+    padding:20px 18px 22px;
+  }
+  /* put temp row first on mobile so it reads: big number → city below */
+  .h-right{
+    order:-1;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-align:left;
+    margin-bottom:16px;
+  }
+  .h-emoji{font-size:36px;margin-bottom:0;flex-shrink:0;}
+  .h-temp{font-size:clamp(48px,14vw,68px);letter-spacing:-2px;}
+  .h-feels{font-size:11px;margin-top:4px;}
+  .h-hilo{font-size:11px;}
+  .h-city{font-size:clamp(22px,6vw,34px);letter-spacing:-0.5px;margin-bottom:6px;}
+  .h-badge{font-size:11px;padding:4px 12px;margin-bottom:10px;}
+  .h-meta{font-size:10px;line-height:1.8;}
+
+  /* ── ai card ── */
+  .ai-card{padding:16px;}
+  .ai-logo{width:30px;height:30px;}
+  .ai-title span{font-size:14px;}
+  .ai-actions{gap:8px;}
+  .ai-btn{font-size:12px;padding:9px 14px;}
+  #ai-summary{font-size:13px;line-height:1.6;}
+
+  /* ── stat tiles ── */
+  .stat-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
+  .st{padding:14px;}
+  .st-val{font-size:20px;}
+  .st-icon{font-size:16px;margin-bottom:6px;}
+  .st-lbl{font-size:9px;}
+
+  /* ── two-col info cards ── */
+  .two-col{grid-template-columns:1fr;gap:10px;}
+  .info-card{padding:16px 18px;}
+  .ic-key{font-size:11px;}
+  .ic-v{font-size:13px;}
+  .uv-big{font-size:36px;}
+
+  /* ── forecast: horizontal scroll strip ── */
+  .fc-grid{
+    display:flex;
+    flex-direction:row;
+    gap:8px;
+    overflow-x:auto;
+    padding-bottom:8px;
+    scrollbar-width:none;
+    /* subtle left-fade hint that it scrolls */
+    -webkit-mask:linear-gradient(90deg,transparent 0%,#000 5%,#000 90%,transparent 100%);
+    mask:linear-gradient(90deg,transparent 0%,#000 5%,#000 90%,transparent 100%);
+  }
+  .fc-grid::-webkit-scrollbar{display:none;}
+  .fc{
+    flex:0 0 88px;   /* fixed width card */
+    min-width:88px;
+    padding:14px 8px;
+  }
+  .fc-icon{font-size:22px;margin-bottom:8px;}
+  .fc-hi{font-size:15px;}
+  .fc-lo{font-size:10px;}
+  .fc-day{font-size:9px;letter-spacing:1px;}
+
+  /* ── mood badge — move to bottom-left on mobile so it doesn't overlap scrollbar ── */
+  #mood-badge{
+    bottom:16px;right:12px;left:12px;
+    text-align:center;
+    border-radius:12px;
+    font-size:10px;
+  }
+
+  /* ── footer ── */
+  footer{font-size:9px;padding:12px 16px 24px;line-height:2.2;}
+
+  /* ── skeleton responsive ── */
+  .sk-g3{grid-template-columns:repeat(2,1fr);}
+  .sk-g5{
+    display:flex;flex-direction:row;overflow-x:auto;gap:8px;scrollbar-width:none;
+  }
+  .sk-g5 > *{flex:0 0 88px;min-width:88px;}
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE — small phones (≤380px)
+══════════════════════════════════════ */
+@media(max-width:380px){
+  #main{padding:70px 10px 28px;}
+  .stat-grid{grid-template-columns:repeat(2,1fr);gap:8px;}
+  .st{padding:12px;}
+  .st-val{font-size:18px;}
+  .h-temp{font-size:clamp(44px,13vw,60px);}
+  .pill-btn{padding:4px 8px;font-size:10px;}
+  #go-btn{padding:0 12px;font-size:12px;}
+}
 
 
 .ai-card{
